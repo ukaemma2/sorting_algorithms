@@ -1,15 +1,9 @@
 #include "sort.h"
 
 /**
- * bubble_sort - sorts an array of integers in ascending orde
- * *@array: the array to be sort
- * @size: the  size of the array
- */
-
-/**
  * swap - function to implement swapping of integers
- * *xp: number to swap
- * yp: number to swap
+ * @xp: number to swap
+ * @yp: number to swap
  */
 
 
@@ -20,6 +14,12 @@ void swap(int *xp, int *yp)
 	*yp = temp;
 }
 
+
+/**
+ *bubble_sort - sorts an array of integers in ascending orde
+ *@array: the array to be sort
+ *@size: the size of the array
+ */
 
 void bubble_sort(int *array, size_t size)
 {
