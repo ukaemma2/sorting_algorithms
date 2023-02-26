@@ -1,72 +1,36 @@
 #include "sort.h"
-
 /**
- * swap - swap two int
- * @a: int
- * @b: int
- * Return: (void) Swaped int
- */
-void swap(int *a, int *b)
+ * shell_sort -Sort an array using shell_sort algorithm
+ * @array: array
+ * @size: size of the array
+ * Return: NULL
+ **/
+void shell_sort(int *array, size_t size)
 {
-	int tmp;
+	unsigned int gap = 1, i, j;
+	int temp;
 
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
-}
-/**
- * partition - Partition an array and using pivot
- * @array: Array
- * @low: int
- * @high: int
- * @size: size of array (size_t)
- * Return: index of pivote (int)
- */
-int partition(int *array, int low, int high, size_t size)
-{
-	int pivot = array[high];
-	int x = low - 1, y;
+	if (array == NULL)
+		return;
+	if (size < 2)
+		return;
+	while (gap < size / 3)
+		gap = gap * 3 + 1;
 
-	for (y = low; y <= high; y++)
+	while (gap > 0)
 	{
-		if (array[y] <= pivot)
+		for (i = gap; i < size; i++)
 		{
-			x++;
-			if (x != y)
+			temp = array[i];
+			j = i;
+			while (j >= gap && array[j - gap] > temp)
 			{
-				swap(&array[x], &array[y]);
-				print_array(array, size);
+				array[j] = array[j - gap];
+				j -= gap;
 			}
+			array[j] = temp;
 		}
+		print_array(array, size);
+		gap /= 3;
 	}
-	return (x);
-}
-/**
- * lomuto_qsort - Sorting Recursively an Array
- * @array: Array to be sorted
- * @low: The lowest value of the array
- * @high: highest value of the array
- * @size: Size of The Array
- * Return: void
- */
-void lomuto_qsort(int *array, int low, int high, size_t size)
-{
-	int i;
-
-	if (low < high)
-	{
-		i = partition(array, low, high, size);
-		lomuto_qsort(array, low, i - 1, size);
-		lomuto_qsort(array, i + 1, high, size);
-	}
-}
-/**
- * quick_sort - Quick Sort Algorithme using lomuto partition
- * @array: Array to sort
- * @size: Size of The Array
- * Return: Sorted Array (void)
- */
-void quick_sort(int *array, size_t size)
-{
-	lomuto_qsort(array, 0, size - 1, size);
 }
